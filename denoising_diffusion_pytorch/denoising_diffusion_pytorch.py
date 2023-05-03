@@ -271,7 +271,7 @@ class Attention(nn.Module):
 class Unet(nn.Module):
     def __init__(
         self,
-        dim,
+        dim, #64
         init_dim = None,
         out_dim = None,
         dim_mults=(1, 2, 4, 8),
@@ -287,11 +287,11 @@ class Unet(nn.Module):
 
         # determine dimensions
 
-        self.channels = channels
-        self.self_condition = self_condition
-        input_channels = channels * (2 if self_condition else 1)
+        self.channels = channels # 3
+        self.self_condition = self_condition # False
+        input_channels = channels * (2 if self_condition else 1)  # 1
 
-        init_dim = default(init_dim, dim)
+        init_dim = default(init_dim, dim) # 
         self.init_conv = nn.Conv2d(input_channels, init_dim, 7, padding = 3)
 
         dims = [init_dim, *map(lambda m: dim * m, dim_mults)]
